@@ -5,6 +5,7 @@ const NODE_TOTAL = Number(process.env.CI_NODE_TOTAL || 1);
 
 function getspecFiles(TEST_FOLDER) {
   console.log("Creating Sec file for running in parallel");
+  const result = TEST_FOLDER.replace("../", "");
   const allSpecFiles = walk(TEST_FOLDER);
   const filterspec = allSpecFiles
     .sort()
@@ -14,7 +15,7 @@ function getspecFiles(TEST_FOLDER) {
     specfiles.push(
       "import " +
         "'" +
-        item.toString().replace(".js", "").replace("cypress/e2e", "..") +
+        item.toString().replace(".js", "").replace(result, "..") +
         "'"
     );
   });
